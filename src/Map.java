@@ -1,3 +1,14 @@
+import java.util.HashMap;
+
 public class Map {
-    // карта, содержит в себе коллекцию для хранения существ и их координаты
+  HashMap<Coordinates, Entity> entities = new HashMap<>();
+
+  public void setEntity(Coordinates coordinates, Entity entity) {
+    entity.coordinates = coordinates;
+    entities.put(coordinates, entity);
+  }
+
+  public void setupDefaultEntityPosition(Entity entity) {
+
+  }
 }
