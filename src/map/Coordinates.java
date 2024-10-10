@@ -1,12 +1,14 @@
+package map;
+
 import java.util.Objects;
 
 public class Coordinates {
-  public final int X;
-  public final int Y;
+  public final int x;
+  public final int y;
 
   public Coordinates(int x, int y) {
-    this.X = x;
-    this.Y = y;
+    this.x = x;
+    this.y = y;
   }
 
   @Override
@@ -18,11 +20,11 @@ public class Coordinates {
       return false;
     }
     Coordinates that = (Coordinates) o;
-    return X == that.X && Y == that.Y;
+    return x == that.x && y == that.y;
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(X, Y);
+    return Objects.hash(x, y);
   }
 }

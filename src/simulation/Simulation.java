@@ -1,3 +1,7 @@
+package simulation;
+
+import map.Map;
+
 public class Simulation {
   private Map map;
   private int stepsCounter;
