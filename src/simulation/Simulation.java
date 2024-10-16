@@ -1,10 +1,10 @@
 package simulation;
 
-import map.Map;
+import worldMap.WorldMap;
 
 public class Simulation {
-  private Map map;
+  private WorldMap map;
   private int stepsCounter;
-  // MapRenderer
+  // WorldMapRenderer
   // Actions - список действий, исполняемых перед стартом симуляции
 }
