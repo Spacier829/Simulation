@@ -7,8 +7,6 @@ import entities.environment.Grass;
 import entities.environment.Rock;
 import entities.environment.Tree;
 
-import java.util.Random;
-
 public class WorldMapRenderer {
   public static final String HERBIVORE = "\uD83E\uDD93";
   public static final String PREDATOR = "\uD83E\uDD81";
@@ -17,7 +15,6 @@ public class WorldMapRenderer {
   public static final String ROCK = "\uD83D\uDDFF";
   public static final String TREE = "\uD83C\uDF34";
   public static final String DEBUG_SYMBOL = "\uD83D\uDD00";
-
 
   public void render(WorldMap worldMap) {
     StringBuilder stringBuilder = new StringBuilder();
