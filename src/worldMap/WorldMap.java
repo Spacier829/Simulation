@@ -44,4 +44,8 @@ public class WorldMap {
   public boolean isCellEmpty(Coordinates coordinates) {
     return !entities.containsKey(coordinates);
   }
+
+  public boolean isMapFilled() {
+    return entities.size() == mapSize;
+  }
 }

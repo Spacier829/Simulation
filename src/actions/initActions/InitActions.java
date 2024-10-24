@@ -5,51 +5,31 @@ import entities.creatures.Predator;
 import entities.environment.Grass;
 import entities.environment.Rock;
 import entities.environment.Tree;
-import worldMap.Coordinates;
 import worldMap.WorldMap;
 
-import java.util.Random;
-
 public class InitActions {
-  public void mockSpawnMethod(WorldMap worldMap) {
-    int mapSize = worldMap.getMapSize();
-    int predatorCount = (int) (mapSize * 0.12);
-    int herbivoreCount = predatorCount;
-    int treeCount = predatorCount;
-    int rockCount = predatorCount;
-    int grassCount = (int) (mapSize * 0.22);
+  private static final double PREDATOR_POPULATION_COEFFICIENT = 0.12;
+  private static final double HERBIVORE_POPULATION_COEFFICIENT = 0.12;
+  private static final double TREE_POPULATION_COEFFICIENT = 0.11;
+  private static final double ROCK_POPULATION_COEFFICIENT = 0.09;
+  private static final double GRASS_POPULATION_COEFFICIENT = 0.09;
 
-    for (int i = 0; i < predatorCount; i++) {
-      Coordinates coordinates = mockGetRandomCoordinates(worldMap);
-      worldMap.setEntity(coordinates, new Predator());
-    }
-    for (int i = 0; i < herbivoreCount; i++) {
-      Coordinates coordinates = mockGetRandomCoordinates(worldMap);
-      worldMap.setEntity(coordinates, new Herbivore());
-    }
-    for (int i = 0; i < treeCount; i++) {
-      Coordinates coordinates = mockGetRandomCoordinates(worldMap);
-      worldMap.setEntity(coordinates, new Tree());
-    }
-    for (int i = 0; i < rockCount; i++) {
-      Coordinates coordinates = mockGetRandomCoordinates(worldMap);
-      worldMap.setEntity(coordinates, new Rock());
-    }
-    for (int i = 0; i < grassCount; i++) {
-      Coordinates coordinates = mockGetRandomCoordinates(worldMap);
-      worldMap.setEntity(coordinates, new Grass());
-    }
-  }
+  public void initSpawns(WorldMap worldMap) {
+    int predatorCount = (int) (worldMap.getMapSize() * PREDATOR_POPULATION_COEFFICIENT);
+    int herbivoreCount = (int) (worldMap.getMapSize() * HERBIVORE_POPULATION_COEFFICIENT);
+    int treeCount = (int) (worldMap.getMapSize() * TREE_POPULATION_COEFFICIENT);
+    int rockCount = (int) (worldMap.getMapSize() * ROCK_POPULATION_COEFFICIENT);
+    int grassCount = (int) (worldMap.getMapSize() * GRASS_POPULATION_COEFFICIENT);
 
-  protected Coordinates mockGetRandomCoordinates(WorldMap worldMap) {
-    Random random = new Random();
-    while (true) {
-      int x = random.nextInt(worldMap.getWidth());
-      int y = random.nextInt(worldMap.getWidth());
-
-      if (worldMap.isCellEmpty(new Coordinates(x, y))) {
-        return new Coordinates(x, y);
-      }
-    }
+    SpawnAction predatorSpawnAction = new SpawnAction(predatorCount, () -> new Predator());
+    predatorSpawnAction.spawnEntities(worldMap);
+    SpawnAction herbivoreSpawnAction = new SpawnAction(herbivoreCount, () -> new Herbivore());
+    herbivoreSpawnAction.spawnEntities(worldMap);
+    SpawnAction treeSpawnAction = new SpawnAction(treeCount, () -> new Tree());
+    treeSpawnAction.spawnEntities(worldMap);
+    SpawnAction rockSpawnAction = new SpawnAction(rockCount, () -> new Rock());
+    rockSpawnAction.spawnEntities(worldMap);
+    SpawnAction grassSpawnAction = new SpawnAction(grassCount, () -> new Grass());
+    grassSpawnAction.spawnEntities(worldMap);
   }
 }
