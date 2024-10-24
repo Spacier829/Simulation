@@ -1,5 +1,8 @@
 package simulation;
 
+import entities.Entity;
+import entities.creatures.Predator;
+import worldMap.Coordinates;
 import worldMap.WorldMap;
 import worldMap.WorldMapRenderer;
 
@@ -8,11 +11,11 @@ public class Simulation {
   private int stepsCounter;
 
   public static void main(String[] args) {
-    WorldMapRenderer worldMapRenderer = new WorldMapRenderer();
     WorldMap worldMap = new WorldMap(5, 5);
-    worldMapRenderer.mockSpawnMethod(worldMap);
-    worldMapRenderer.render(worldMap);
+    WorldMapRenderer renderer = new WorldMapRenderer();
+    Entity leo = new Predator();
+    worldMap.setEntity(new Coordinates(2, 2), leo);
+    renderer.render(worldMap);
   }
-  // WorldMapRenderer
-  // Actions - список действий, исполняемых перед стартом симуляции
+
 }
