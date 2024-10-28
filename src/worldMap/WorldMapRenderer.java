@@ -3,9 +3,7 @@ package worldMap;
 import entities.Entity;
 import entities.creatures.Herbivore;
 import entities.creatures.Predator;
-import entities.environment.Grass;
-import entities.environment.Rock;
-import entities.environment.Tree;
+import entities.environment.*;
 
 public class WorldMapRenderer {
   public static final String HERBIVORE = "\uD83E\uDD93";
@@ -14,7 +12,10 @@ public class WorldMapRenderer {
   public static final String GRASS = "\uD83C\uDF3F";
   public static final String ROCK = "\uD83D\uDDFF";
   public static final String TREE = "\uD83C\uDF34";
-  public static final String DEBUG_SYMBOL = "\uD83D\uDD00";
+  public static final String DEBUG_UP_SYMBOL = "⬆\uFE0F";
+  public static final String DEBUG_DOWN_SYMBOL = "⬇\uFE0F";
+  public static final String DEBUG_LEFT_SYMBOL = "⬅\uFE0F";
+  public static final String DEBUG_RIGHT_SYMBOL = "➡\uFE0F";
 
   public void render(WorldMap worldMap) {
     StringBuilder stringBuilder = new StringBuilder();
@@ -44,7 +45,16 @@ public class WorldMapRenderer {
       return ROCK;
     } else if (entity instanceof Tree) {
       return TREE;
+    } else if (entity instanceof DebugUp) {
+      return DEBUG_UP_SYMBOL;
+    } else if (entity instanceof DebugDown) {
+      return DEBUG_DOWN_SYMBOL;
+    } else if (entity instanceof DebugLeft) {
+      return DEBUG_LEFT_SYMBOL;
+    } else if (entity instanceof DebugRight) {
+      return DEBUG_RIGHT_SYMBOL;
     }
+
     throw new IllegalArgumentException("Unsupported entity type: " + entity.getClass().getName());
   }
 }

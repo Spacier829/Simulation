@@ -1,5 +1,8 @@
 package entities.creatures;
 
+import worldMap.Coordinates;
+import worldMap.WorldMap;
+
 public class Predator extends Creature {
   private final static int MAX_HEALTH = 10;
   private final static int SPEED = 1;
@@ -10,7 +13,7 @@ public class Predator extends Creature {
   }
 
   @Override
-  protected void makeMove() {
+  public void makeMove(WorldMap worldMap, Coordinates source, Coordinates target) {
     // движение в стороны жертвы
   }
   //хищник, имеет силу атаки
