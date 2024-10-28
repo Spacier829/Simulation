@@ -4,7 +4,6 @@ import entities.Entity;
 import worldMap.Coordinates;
 import worldMap.WorldMap;
 
-import java.util.Random;
 import java.util.function.Supplier;
 
 public class SpawnAction {
@@ -20,21 +19,8 @@ public class SpawnAction {
     for (int i = 0; i < entityCount; i++) {
       if (!worldMap.isMapFilled()) {
         Entity entity = entitySupplier.get();
-        Coordinates coordinates = getRandomEmptyCell(worldMap);
+        Coordinates coordinates = worldMap.getRandomEmptyCell();
         worldMap.setEntity(coordinates, entity);
-      }
-    }
-  }
-
-  private Coordinates getRandomEmptyCell(WorldMap worldMap) {
-    Random random = new Random();
-    while (true) {
-      int x = random.nextInt(worldMap.getWidth());
-      int y = random.nextInt(worldMap.getHeight());
-
-      Coordinates coordinates = new Coordinates(x, y);
-      if (worldMap.isCellEmpty(coordinates)) {
-        return coordinates;
       }
     }
   }

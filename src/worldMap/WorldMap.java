@@ -4,6 +4,7 @@ import entities.Entity;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 public class WorldMap {
   private final int width;
@@ -43,6 +44,19 @@ public class WorldMap {
 
   public boolean isCellEmpty(Coordinates coordinates) {
     return !entities.containsKey(coordinates);
+  }
+
+  public Coordinates getRandomEmptyCell() {
+    Random random = new Random();
+    while (true) {
+      int x = random.nextInt(this.width);
+      int y = random.nextInt(this.height);
+
+      Coordinates coordinates = new Coordinates(x, y);
+      if (this.isCellEmpty(coordinates)) {
+        return coordinates;
+      }
+    }
   }
 
   public boolean isMapFilled() {
