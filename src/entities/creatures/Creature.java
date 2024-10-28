@@ -5,7 +5,7 @@ import entities.Entity;
 abstract public class Creature extends Entity {
   protected final int MIN_HEALTH = 0;
   protected int speed;
-  protected int health;// сколько клеток может пройти за 1 ход
+  protected int health;
 
   public Creature(int speed, int health) {
     this.speed = speed;
@@ -13,9 +13,5 @@ abstract public class Creature extends Entity {
   }
 
   protected void makeMove() {
-
   }
-
-  ; //-> каждый делает по своему
-
 }
