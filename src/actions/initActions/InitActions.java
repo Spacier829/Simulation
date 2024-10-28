@@ -14,7 +14,7 @@ public class InitActions {
   private static final double ROCK_POPULATION_COEFFICIENT = 0.09;
   private static final double GRASS_POPULATION_COEFFICIENT = 0.09;
 
-  public void initSpawns(WorldMap worldMap) {
+  public static void initSpawns(WorldMap worldMap) {
     int predatorCount = (int) (worldMap.getMapSize() * PREDATOR_POPULATION_COEFFICIENT);
     int herbivoreCount = (int) (worldMap.getMapSize() * HERBIVORE_POPULATION_COEFFICIENT);
     int treeCount = (int) (worldMap.getMapSize() * TREE_POPULATION_COEFFICIENT);
