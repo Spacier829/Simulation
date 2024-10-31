@@ -3,6 +3,7 @@ package actions.initActions;
 import entities.Entity;
 import worldMap.Coordinates;
 import worldMap.WorldMap;
+import worldMap.WorldMapUtils;
 
 import java.util.function.Supplier;
 
@@ -19,7 +20,7 @@ public class SpawnAction {
     for (int i = 0; i < entityCount; i++) {
       if (!worldMap.isMapFilled()) {
         Entity entity = entitySupplier.get();
-        Coordinates coordinates = worldMap.getRandomEmptyCell();
+        Coordinates coordinates = WorldMapUtils.getRandomEmptyCell(worldMap);
         worldMap.setEntity(coordinates, entity);
       }
     }
