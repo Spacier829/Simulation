@@ -16,6 +16,7 @@ public class WorldMapRenderer {
   public static final String DEBUG_DOWN_SYMBOL = "⬇\uFE0F";
   public static final String DEBUG_LEFT_SYMBOL = "⬅\uFE0F";
   public static final String DEBUG_RIGHT_SYMBOL = "➡\uFE0F";
+  public static final String DEBUG_VISITED_SYMBOL = "\uD83D\uDFE9";
 
   public void render(WorldMap worldMap) {
     StringBuilder stringBuilder = new StringBuilder();
@@ -53,6 +54,8 @@ public class WorldMapRenderer {
       return DEBUG_LEFT_SYMBOL;
     } else if (entity instanceof DebugRight) {
       return DEBUG_RIGHT_SYMBOL;
+    } else if (entity instanceof DebugVisited) {
+      return DEBUG_VISITED_SYMBOL;
     }
 
     throw new IllegalArgumentException("Unsupported entity type: " + entity.getClass().getName());
