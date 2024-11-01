@@ -34,10 +34,17 @@ public class WorldMap {
   }
 
   public void removeEntity(Coordinates coordinates) {
-    entities.remove(coordinates);
+    boolean isRemoved = entities.remove(coordinates) != null;
+    if (!isRemoved) {
+      throw new IllegalArgumentException("Coordinates not removed " + coordinates);
+    }
   }
 
   public Entity getEntity(Coordinates coordinates) {
+    Entity entity = entities.get(coordinates);
+    if (entity == null) {
+      throw new IllegalArgumentException("Coordinates not found " + coordinates);
+    }
     return entities.get(coordinates);
   }
 
