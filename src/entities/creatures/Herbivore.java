@@ -8,6 +8,6 @@ public class Herbivore extends Creature {
   private final static int SPEED = 1;
 
   public Herbivore() {
-    super(SPEED, MAX_HEALTH);
+    super(SPEED, MAX_HEALTH, "Grass");
   }
 }

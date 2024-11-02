@@ -1,5 +1,8 @@
 package pathFinder;
 
+import entities.creatures.Creature;
+import entities.environment.DebugVisited;
+import entities.environment.Grass;
 import entities.Entity;
 import entities.environment.DebugVisited;
 import worldMap.Coordinates;
@@ -12,39 +15,57 @@ import java.util.*;
 public class BreadthFirstSearch {
   private Queue<Coordinates> queue;
   private List<Coordinates> visitedCells;
-  private Map<Coordinates, Coordinates> coordinateConnections;
+  private Map<Coordinates, Coordinates> coordinatesConnections;
+  private final WorldMap worldMap;
+  private Creature creature;
 
-  public List<Coordinates> findPath(WorldMap worldMap, Coordinates startCoordinates, Entity target) {
+  public BreadthFirstSearch(WorldMap worldMap) {
+    this.worldMap = worldMap;
+  }
+
+  public List<Coordinates> findPath(WorldMap worldMap, Coordinates coordinates, Creature creature) {
     queue = new LinkedList<>();
     visitedCells = new ArrayList<>();
-    coordinateConnections = new HashMap<>();
+    coordinatesConnections = new HashMap<>();
+    this.creature = creature;
     WorldMapRenderer renderer = new WorldMapRenderer();
 
-    queue.add(startCoordinates);
+    queue.offer(coordinates);
 
     while (!queue.isEmpty()) {
-      startCoordinates = queue.remove();
-      visitedCells.add(startCoordinates);
+      coordinates = queue.remove();
+      visitedCells.add(coordinates);
 
-      int x = startCoordinates.getX();
-      int y = startCoordinates.getY();
+      // Проверка, что мы достигли необходимой цели
+      if (isAchievedTarget(coordinates)){
+        return visitedCells;
+      }
 
-      List<Coordinates> coordinateShifts = new ArrayList<>();
+      int x = coordinates.getX();
+      int y = coordinates.getY();
 
-      coordinateShifts.add(new Coordinates(x + 1, y));
-      coordinateShifts.add(new Coordinates(x - 1, y));
-      coordinateShifts.add(new Coordinates(x, y + 1));
-      coordinateShifts.add(new Coordinates(x, y - 1));
+      List<Coordinates> coordinateShift = new ArrayList<>();
+      coordinateShift.add(new Coordinates(x + 1, y));
+      coordinateShift.add(new Coordinates(x - 1, y));
+      coordinateShift.add(new Coordinates(x, y + 1));
+      coordinateShift.add(new Coordinates(x, y - 1));
 
-      for (Coordinates shift : coordinateShifts) {
+      for (Coordinates shift : coordinateShift) {
         if (WorldMapUtils.isValidCoordinates(worldMap, shift) &&
-            isCanVisit(shift) &&
-            worldMap.isCellEmpty(shift)) {
-          worldMap.setEntity(shift, new DebugVisited());
+            isCanVisit(shift)
+            //&& isCanMove(coordinates)
+        ) {
+          // Временная проверка, что мы достигли цели
+          if (!isAchievedTarget(shift)) {
+            worldMap.setEntity(shift, new DebugVisited());
+          } else {
+            coordinatesConnections.put(shift, coordinates);
+            return visitedCells;
+          }
           renderer.render(worldMap);
           System.out.println();
           queue.offer(shift);
-          coordinateConnections.put(shift, startCoordinates);
+          coordinatesConnections.put(shift, coordinates);
         }
       }
     }
@@ -55,7 +76,15 @@ public class BreadthFirstSearch {
     return !visitedCells.contains(coordinates) && !queue.contains(coordinates);
   }
 
-//  private boolean isCanMove(WorldMap worldMap) {
-//    return worldMap.isCellEmpty();
-//  }
+  private boolean isAchievedTarget(Coordinates coordinates) {
+    if (!worldMap.isCellEmpty(coordinates)) {
+      String entityClass = worldMap.getEntity(coordinates).getClass().getSimpleName();
+      return (creature.getTargetClass().equals(entityClass));
+    }
+    return false;
+  }
+
+  private boolean isCanMove(Coordinates coordinates) {
+    return worldMap.isCellEmpty(coordinates) || isAchievedTarget(coordinates);
+  }
 }

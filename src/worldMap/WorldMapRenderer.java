@@ -12,10 +12,6 @@ public class WorldMapRenderer {
   public static final String GRASS = "\uD83C\uDF3F";
   public static final String ROCK = "\uD83D\uDDFF";
   public static final String TREE = "\uD83C\uDF34";
-  public static final String DEBUG_UP_SYMBOL = "⬆\uFE0F";
-  public static final String DEBUG_DOWN_SYMBOL = "⬇\uFE0F";
-  public static final String DEBUG_LEFT_SYMBOL = "⬅\uFE0F";
-  public static final String DEBUG_RIGHT_SYMBOL = "➡\uFE0F";
   public static final String DEBUG_VISITED_SYMBOL = "\uD83D\uDFE9";
 
   public void render(WorldMap worldMap) {
@@ -46,18 +42,9 @@ public class WorldMapRenderer {
       return ROCK;
     } else if (entity instanceof Tree) {
       return TREE;
-    } else if (entity instanceof DebugUp) {
-      return DEBUG_UP_SYMBOL;
-    } else if (entity instanceof DebugDown) {
-      return DEBUG_DOWN_SYMBOL;
-    } else if (entity instanceof DebugLeft) {
-      return DEBUG_LEFT_SYMBOL;
-    } else if (entity instanceof DebugRight) {
-      return DEBUG_RIGHT_SYMBOL;
     } else if (entity instanceof DebugVisited) {
       return DEBUG_VISITED_SYMBOL;
     }
-
     throw new IllegalArgumentException("Unsupported entity type: " + entity.getClass().getName());
   }
 }
