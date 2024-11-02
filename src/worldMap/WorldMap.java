@@ -2,8 +2,7 @@ package worldMap;
 
 import entities.Entity;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class WorldMap {
   private final int width;
@@ -30,13 +29,16 @@ public class WorldMap {
   }
 
   public void setEntity(Coordinates coordinates, Entity entity) {
+    if (!WorldMapUtils.isValidCoordinates(this, coordinates)) {
+      throw new IllegalArgumentException("Entity not set. Invalid coordinates");
+    }
     entities.put(coordinates, entity);
   }
 
   public void removeEntity(Coordinates coordinates) {
     boolean isRemoved = entities.remove(coordinates) != null;
     if (!isRemoved) {
-      throw new IllegalArgumentException("Coordinates not removed " + coordinates);
+      throw new IllegalArgumentException("Entity not removed");
     }
   }
 
@@ -46,6 +48,10 @@ public class WorldMap {
       throw new IllegalArgumentException("Coordinates not found " + coordinates);
     }
     return entities.get(coordinates);
+  }
+
+  public Set<Coordinates> getEntitiesCoordinates() {
+    return entities.keySet();
   }
 
   public boolean isCellEmpty(Coordinates coordinates) {
