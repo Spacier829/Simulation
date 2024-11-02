@@ -2,9 +2,6 @@ package pathFinder;
 
 import entities.creatures.Creature;
 import entities.environment.DebugVisited;
-import entities.environment.Grass;
-import entities.Entity;
-import entities.environment.DebugVisited;
 import worldMap.Coordinates;
 import worldMap.WorldMap;
 import worldMap.WorldMapRenderer;
@@ -23,22 +20,22 @@ public class BreadthFirstSearch {
     this.worldMap = worldMap;
   }
 
-  public List<Coordinates> findPath(WorldMap worldMap, Coordinates coordinates, Creature creature) {
+  public List<Coordinates> findPath(WorldMap worldMap, Coordinates startCoordinates, Creature creature) {
     queue = new LinkedList<>();
     visitedCells = new ArrayList<>();
     coordinatesConnections = new HashMap<>();
     this.creature = creature;
     WorldMapRenderer renderer = new WorldMapRenderer();
 
-    queue.offer(coordinates);
+    queue.offer(startCoordinates);
 
     while (!queue.isEmpty()) {
-      coordinates = queue.remove();
+      Coordinates coordinates = queue.remove();
       visitedCells.add(coordinates);
 
       // Проверка, что мы достигли необходимой цели
-      if (isAchievedTarget(coordinates)){
-        return visitedCells;
+      if (isAchievedTarget(coordinates)) {
+        return getResultPath(startCoordinates, coordinates);
       }
 
       int x = coordinates.getX();
@@ -52,24 +49,23 @@ public class BreadthFirstSearch {
 
       for (Coordinates shift : coordinateShift) {
         if (WorldMapUtils.isValidCoordinates(worldMap, shift) &&
-            isCanVisit(shift)
-            //&& isCanMove(coordinates)
+            isCanVisit(shift) && isCanMove(shift)
         ) {
-          // Временная проверка, что мы достигли цели
-          if (!isAchievedTarget(shift)) {
-            worldMap.setEntity(shift, new DebugVisited());
-          } else {
-            coordinatesConnections.put(shift, coordinates);
-            return visitedCells;
-          }
-          renderer.render(worldMap);
-          System.out.println();
           queue.offer(shift);
           coordinatesConnections.put(shift, coordinates);
         }
       }
     }
     return visitedCells;
+  }
+
+  private List<Coordinates> getResultPath(Coordinates startCoordinates, Coordinates finishCoordinates) {
+    List<Coordinates> path = new ArrayList<>();
+    while (finishCoordinates != startCoordinates) {
+      path.add(finishCoordinates);
+      finishCoordinates = coordinatesConnections.get(finishCoordinates);
+    }
+    return path.reversed();
   }
 
   private boolean isCanVisit(Coordinates coordinates) {
