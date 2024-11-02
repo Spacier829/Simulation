@@ -56,13 +56,18 @@ public class BreadthFirstSearch {
         }
       }
     }
-    return visitedCells;
+    return new ArrayList<>();
   }
 
   private List<Coordinates> getResultPath(Coordinates startCoordinates, Coordinates finishCoordinates) {
     List<Coordinates> path = new ArrayList<>();
-    while (finishCoordinates != startCoordinates) {
+    WorldMapRenderer renderer = new WorldMapRenderer();
+
+    while (!finishCoordinates.equals(startCoordinates)) {
       path.add(finishCoordinates);
+      worldMap.setEntity(finishCoordinates, new DebugVisited());
+      renderer.render(worldMap);
+      System.out.println();
       finishCoordinates = coordinatesConnections.get(finishCoordinates);
     }
     return path.reversed();
