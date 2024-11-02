@@ -27,8 +27,14 @@ public class WorldMapRenderer {
           stringBuilder.append(GROUND);
         }
       }
+      stringBuilder.append(y);
       System.out.println(stringBuilder);
     }
+    stringBuilder.setLength(0);
+    for (int i = 0; i < worldMap.getWidth(); i++) {
+      stringBuilder.append(" " +i);
+    }
+    System.out.println(stringBuilder);
   }
 
   private String getSpriteForEntity(Entity entity) {
