@@ -7,13 +7,11 @@ import java.util.*;
 public class WorldMap {
   private final int width;
   private final int height;
-  private final int mapSize;
   private Map<Coordinates, Entity> entities = new HashMap<>();
 
   public WorldMap(int width, int height) {
     this.width = width;
     this.height = height;
-    this.mapSize = width * height;
   }
 
   public int getWidth() {
@@ -25,7 +23,7 @@ public class WorldMap {
   }
 
   public int getMapSize() {
-    return mapSize;
+    return width * height;
   }
 
   public void setEntity(Coordinates coordinates, Entity entity) {
@@ -59,6 +57,6 @@ public class WorldMap {
   }
 
   public boolean isMapFilled() {
-    return entities.size() == mapSize;
+    return entities.size() == width * height;
   }
 }
