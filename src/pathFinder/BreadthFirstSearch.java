@@ -65,9 +65,6 @@ public class BreadthFirstSearch {
 
     while (!finishCoordinates.equals(startCoordinates)) {
       path.add(finishCoordinates);
-      worldMap.setEntity(finishCoordinates, new DebugVisited());
-      renderer.render(worldMap);
-      System.out.println();
       finishCoordinates = coordinatesConnections.get(finishCoordinates);
     }
     return path.reversed();

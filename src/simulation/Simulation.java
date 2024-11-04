@@ -25,11 +25,13 @@ public class Simulation {
     Creature zebra = new Herbivore();
     Entity grass = new Grass();
     Entity rock = new Rock();
-    String test = Grass.class.getSimpleName();
 
     worldMap.setEntity(new Coordinates(11, 11), zebra);
-    worldMap.setEntity(new Coordinates(1, 3), grass);
+    worldMap.setEntity(new Coordinates(2, 0), zebra);
+    worldMap.setEntity(new Coordinates(1, 1), grass);
+    worldMap.setEntity(new Coordinates(8, 5), zebra);
     worldMap.setEntity(new Coordinates(1, 3), rock);
+    worldMap.setEntity(new Coordinates(2, 6), rock);
 
     List<Coordinates> movableCreatures = new ArrayList<>();
     for (Coordinates coordinates : worldMap.getEntitiesCoordinates()) {
@@ -42,7 +44,9 @@ public class Simulation {
     renderer.render(worldMap);
 
     BreadthFirstSearch bfs = new BreadthFirstSearch(worldMap);
-    List<Coordinates> path = bfs.findPath(worldMap, movableCreatures.get(0), zebra);
+    for (Coordinates coordinates : movableCreatures) {
+      List<Coordinates> path = bfs.findPath(worldMap, coordinates, zebra);
+    }
     // Проверки пути, что он не равен 0, если равен - пути нет
     int a = 123;
   }
