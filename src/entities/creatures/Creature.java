@@ -1,8 +1,11 @@
 package entities.creatures;
 
 import entities.Entity;
+import entities.environment.Debug;
+import entities.environment.Tree;
 import worldMap.Coordinates;
 import worldMap.WorldMap;
+import worldMap.WorldMapRenderer;
 
 abstract public class Creature extends Entity {
   protected final int MIN_HEALTH = 0;
@@ -40,21 +43,12 @@ abstract public class Creature extends Entity {
     this.targetClass = targetClass;
   }
 
-  public void makeMove(WorldMap worldMap, Coordinates source, Coordinates target) {
+  public void makeMove(WorldMap worldMap, Coordinates source, Coordinates nextCoordinates) {
+    System.out.println(worldMap.getEntity(source).getClass().getSimpleName() + "\nSource: " + source + " target: " + nextCoordinates);
     worldMap.removeEntity(source);
-    if (source.getX() == target.getX()) {
-      if (source.getY() < target.getY()) {
-        worldMap.setEntity(source, new DebugUp());
-      } else {
-        worldMap.setEntity(source, new DebugDown());
-      }
-    } else if (source.getY() == target.getY()) {
-      if (source.getX() < target.getX()) {
-        worldMap.setEntity(source, new DebugRight());
-      } else {
-        worldMap.setEntity(source, new DebugLeft());
-      }
-    }
-    worldMap.setEntity(target,this);
+
+//    worldMap.setEntity(source, new Debug());
+
+    worldMap.setEntity(nextCoordinates, this);
   }
 }

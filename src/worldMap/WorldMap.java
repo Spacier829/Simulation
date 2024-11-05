@@ -36,7 +36,7 @@ public class WorldMap {
   public void removeEntity(Coordinates coordinates) {
     boolean isRemoved = entities.remove(coordinates) != null;
     if (!isRemoved) {
-      throw new IllegalArgumentException("Entity not removed");
+      throw new IllegalArgumentException("Entity not found. Invalid coordinates");
     }
   }
 

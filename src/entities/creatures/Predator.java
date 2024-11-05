@@ -12,10 +12,10 @@ public class Predator extends Creature {
     super(SPEED, MAX_HEALTH, "Herbivore");
   }
 
-  @Override
-  public void makeMove(WorldMap worldMap, Coordinates source, Coordinates target) {
-    // движение в стороны жертвы
-  }
+//  @Override
+//  public void makeMove(WorldMap worldMap, Coordinates source, Coordinates target) {
+//    // движение в стороны жертвы
+//  }
   //хищник, имеет силу атаки
   // тратит ход на то, чтобы приблизиться к жертве
   // атака травоядного
