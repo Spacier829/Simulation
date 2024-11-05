@@ -2,19 +2,16 @@ package worldMap;
 
 import entities.Entity;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class WorldMap {
   private final int width;
   private final int height;
-  private final int mapSize;
   private Map<Coordinates, Entity> entities = new HashMap<>();
 
   public WorldMap(int width, int height) {
     this.width = width;
     this.height = height;
-    this.mapSize = width * height;
   }
 
   public int getWidth() {
@@ -26,17 +23,20 @@ public class WorldMap {
   }
 
   public int getMapSize() {
-    return mapSize;
+    return width * height;
   }
 
   public void setEntity(Coordinates coordinates, Entity entity) {
+    if (!WorldMapUtils.isValidCoordinates(this, coordinates)) {
+      throw new IllegalArgumentException("Entity not set. Invalid coordinates");
+    }
     entities.put(coordinates, entity);
   }
 
   public void removeEntity(Coordinates coordinates) {
     boolean isRemoved = entities.remove(coordinates) != null;
     if (!isRemoved) {
-      throw new IllegalArgumentException("Coordinates not removed " + coordinates);
+      throw new IllegalArgumentException("Entity not found. Invalid coordinates");
     }
   }
 
@@ -48,11 +48,15 @@ public class WorldMap {
     return entities.get(coordinates);
   }
 
+  public Set<Coordinates> getEntitiesCoordinates() {
+    return entities.keySet();
+  }
+
   public boolean isCellEmpty(Coordinates coordinates) {
     return !entities.containsKey(coordinates);
   }
 
   public boolean isMapFilled() {
-    return entities.size() == mapSize;
+    return entities.size() == width * height;
   }
 }

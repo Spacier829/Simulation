@@ -2,5 +2,5 @@ package entities.environment;
 
 import entities.Entity;
 
-public class Rock extends Entity {
+public class Debug extends Entity {
 }
