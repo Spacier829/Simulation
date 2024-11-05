@@ -8,13 +8,19 @@ import entities.environment.Tree;
 import worldMap.WorldMap;
 
 public class InitActions {
+  private WorldMap worldMap;
+
+  public InitActions(WorldMap worldMap) {
+    this.worldMap = worldMap;
+  }
+
   private static final double PREDATOR_POPULATION_COEFFICIENT = 0.12;
   private static final double HERBIVORE_POPULATION_COEFFICIENT = 0.12;
   private static final double TREE_POPULATION_COEFFICIENT = 0.11;
   private static final double ROCK_POPULATION_COEFFICIENT = 0.09;
   private static final double GRASS_POPULATION_COEFFICIENT = 0.14;
 
-  public static void initSpawns(WorldMap worldMap) {
+  public void initSpawns() {
     int predatorCount = (int) (worldMap.getMapSize() * PREDATOR_POPULATION_COEFFICIENT);
     int herbivoreCount = (int) (worldMap.getMapSize() * HERBIVORE_POPULATION_COEFFICIENT);
     int treeCount = (int) (worldMap.getMapSize() * TREE_POPULATION_COEFFICIENT);

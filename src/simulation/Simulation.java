@@ -42,38 +42,9 @@ public class Simulation {
 //    worldMap.setEntity(new Coordinates(2, 3), rock);
 //    worldMap.setEntity(new Coordinates(2, 2), tree);
 //    worldMap.setEntity(new Coordinates(2, 1), tree);
-
-    Map<Coordinates, Creature> movableCreatures = new HashMap<>();
-//    List<Coordinates> movableCreatures = new ArrayList<>();
-    for (Coordinates coordinates : worldMap.getEntitiesCoordinates()) {
-      Entity entity = worldMap.getEntity(coordinates);
-      if (entity instanceof Creature creature) {
-        movableCreatures.put (coordinates, creature);
-      }
-    }
-
     renderer.render(worldMap);
 
-    BreadthFirstSearch bfs = new BreadthFirstSearch(worldMap);
-    while (true) {
-      movableCreatures.clear();
-      for (Coordinates coordinates : worldMap.getEntitiesCoordinates()) {
-        Entity entity = worldMap.getEntity(coordinates);
-        if (entity instanceof Creature creature) {
-          movableCreatures.put (coordinates, creature);
-        }
-      }
-      for (Map.Entry<Coordinates, Creature> entry : movableCreatures.entrySet()) {
-        List<Coordinates> path = bfs.findPath(worldMap, entry.getKey(), entry.getValue());
-        if (!path.isEmpty()) {
-          entry.getValue().makeMove(worldMap, entry.getKey(), path.getFirst());
-        }
-        System.out.println(path.size());
-        renderer.render(worldMap);
-        int a = 123;
-      }
-    }
-
+   
     // Проверки пути, что он не равен 0, если равен - пути нет
   }
   // WorldMapRenderer

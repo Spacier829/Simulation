@@ -44,11 +44,9 @@ abstract public class Creature extends Entity {
   }
 
   public void makeMove(WorldMap worldMap, Coordinates source, Coordinates nextCoordinates) {
-    System.out.println(worldMap.getEntity(source).getClass().getSimpleName() + "\nSource: " + source + " target: " + nextCoordinates);
+    System.out.println(
+        worldMap.getEntity(source).getClass().getSimpleName() + "\nSource: " + source + " target: " + nextCoordinates);
     worldMap.removeEntity(source);
-
-//    worldMap.setEntity(source, new Debug());
-
     worldMap.setEntity(nextCoordinates, this);
   }
 }
