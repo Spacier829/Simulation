@@ -1,10 +1,8 @@
 package pathFinder;
 
 import entities.creatures.Creature;
-import entities.environment.DebugVisited;
 import worldMap.Coordinates;
 import worldMap.WorldMap;
-import worldMap.WorldMapRenderer;
 import worldMap.WorldMapUtils;
 
 import java.util.*;
@@ -25,7 +23,6 @@ public class BreadthFirstSearch {
     visitedCells = new ArrayList<>();
     coordinatesConnections = new HashMap<>();
     this.creature = creature;
-    WorldMapRenderer renderer = new WorldMapRenderer();
 
     queue.offer(startCoordinates);
 
@@ -33,7 +30,6 @@ public class BreadthFirstSearch {
       Coordinates coordinates = queue.remove();
       visitedCells.add(coordinates);
 
-      // Проверка, что мы достигли необходимой цели
       if (isAchievedTarget(coordinates)) {
         return getResultPath(startCoordinates, coordinates);
       }
@@ -56,12 +52,12 @@ public class BreadthFirstSearch {
         }
       }
     }
-    return new ArrayList<>();
+    visitedCells.clear();
+    return visitedCells;
   }
 
   private List<Coordinates> getResultPath(Coordinates startCoordinates, Coordinates finishCoordinates) {
     List<Coordinates> path = new ArrayList<>();
-    WorldMapRenderer renderer = new WorldMapRenderer();
 
     while (!finishCoordinates.equals(startCoordinates)) {
       path.add(finishCoordinates);

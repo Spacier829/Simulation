@@ -1,10 +1,6 @@
 package entities.creatures;
 
 import entities.Entity;
-import entities.environment.DebugDown;
-import entities.environment.DebugLeft;
-import entities.environment.DebugRight;
-import entities.environment.DebugUp;
 import worldMap.Coordinates;
 import worldMap.WorldMap;
 

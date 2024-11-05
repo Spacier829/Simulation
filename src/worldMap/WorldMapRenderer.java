@@ -12,7 +12,6 @@ public class WorldMapRenderer {
   public static final String GRASS = "\uD83C\uDF3F";
   public static final String ROCK = "\uD83D\uDDFF";
   public static final String TREE = "\uD83C\uDF34";
-  public static final String DEBUG_VISITED_SYMBOL = "\uD83D\uDFE9";
 
   public void render(WorldMap worldMap) {
     StringBuilder stringBuilder = new StringBuilder();
@@ -30,9 +29,10 @@ public class WorldMapRenderer {
       stringBuilder.append(y);
       System.out.println(stringBuilder);
     }
+    // Потом удалить этот вывод
     stringBuilder.setLength(0);
     for (int i = 0; i < worldMap.getWidth(); i++) {
-      stringBuilder.append(" " +i);
+      stringBuilder.append(" " + i);
     }
     System.out.println(stringBuilder);
   }
@@ -48,8 +48,6 @@ public class WorldMapRenderer {
       return ROCK;
     } else if (entity instanceof Tree) {
       return TREE;
-    } else if (entity instanceof DebugVisited) {
-      return DEBUG_VISITED_SYMBOL;
     }
     throw new IllegalArgumentException("Unsupported entity type: " + entity.getClass().getName());
   }
