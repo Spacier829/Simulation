@@ -1,6 +1,7 @@
 package simulation;
 
 import actions.initActions.InitActions;
+import actions.turnActions.TurnAction;
 import entities.Entity;
 import entities.creatures.Creature;
 import entities.creatures.Herbivore;
@@ -13,11 +14,6 @@ import worldMap.Coordinates;
 import worldMap.WorldMap;
 import worldMap.WorldMapRenderer;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 public class Simulation {
   private WorldMap map;
   private int stepsCounter;
@@ -26,6 +22,8 @@ public class Simulation {
     WorldMap worldMap = new WorldMap(5, 5);
     WorldMapRenderer renderer = new WorldMapRenderer();
 //    InitActions.initSpawns(worldMap);
+    BreadthFirstSearch bfs = new BreadthFirstSearch(worldMap);
+    TurnAction turnAction = new TurnAction(worldMap, bfs);
 
     Creature zebra = new Herbivore();
     Entity grass = new Grass();

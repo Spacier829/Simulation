@@ -29,7 +29,6 @@ public class TurnAction {
     }
   }
 
-
   private Map<Coordinates, Creature> getAllCreatures() {
     Map<Coordinates, Creature> creatures = new HashMap<>();
     for (Coordinates coordinates : worldMap.getEntitiesCoordinates()) {
