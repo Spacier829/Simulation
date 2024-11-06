@@ -1,19 +1,18 @@
 package entities.creatures;
 
 import entities.Entity;
-import entities.environment.Debug;
-import entities.environment.Tree;
 import worldMap.Coordinates;
 import worldMap.WorldMap;
-import worldMap.WorldMapRenderer;
+
+import java.util.List;
 
 abstract public class Creature extends Entity {
   protected final int MIN_HEALTH = 0;
   protected int speed;
   protected int health;
-  protected String targetClass;
+  protected Class<? extends Entity> targetClass;
 
-  public Creature(int speed, int health, String targetClass) {
+  public Creature(int speed, int health, Class<? extends Entity> targetClass) {
     this.speed = speed;
     this.health = health;
     this.targetClass = targetClass;
@@ -35,18 +34,19 @@ abstract public class Creature extends Entity {
     this.health = health;
   }
 
-  public String getTargetClass() {
+  public Class<? extends Entity> getTargetClass() {
     return targetClass;
   }
 
-  public void setTargetClass(String targetClass) {
+  public void setTargetClass(Class<? extends Entity> targetClass) {
     this.targetClass = targetClass;
   }
 
-  public void makeMove(WorldMap worldMap, Coordinates source, Coordinates nextCoordinates) {
-    System.out.println(
-        worldMap.getEntity(source).getClass().getSimpleName() + "\nSource: " + source + " target: " + nextCoordinates);
-    worldMap.removeEntity(source);
-    worldMap.setEntity(nextCoordinates, this);
+  public abstract void makeMove(WorldMap worldMap, Coordinates source, List<Coordinates> path);
+
+  public abstract void eat();
+
+  public boolean isAlive() {
+    return health > MIN_HEALTH;
   }
 }
