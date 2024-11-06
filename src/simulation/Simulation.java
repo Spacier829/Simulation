@@ -14,6 +14,8 @@ import worldMap.Coordinates;
 import worldMap.WorldMap;
 import worldMap.WorldMapRenderer;
 
+import java.util.*;
+
 public class Simulation {
   private WorldMap map;
   private int stepsCounter;
@@ -27,6 +29,7 @@ public class Simulation {
 
     Creature zebra = new Herbivore();
     Entity grass = new Grass();
+    Entity grass1 = new Grass();
     Entity rock = new Rock();
     Entity tree = new Tree();
     Entity leo = new Predator();
@@ -34,13 +37,25 @@ public class Simulation {
     worldMap.setEntity(new Coordinates(4, 2), zebra);
     worldMap.setEntity(new Coordinates(4, 1), leo);
     worldMap.setEntity(new Coordinates(2, 2), grass);
+    worldMap.setEntity(new Coordinates(1, 1), grass1);
+    renderer.render(worldMap);
+    turnAction.moveEntities();
+    renderer.render(worldMap);
+    turnAction.moveEntities();
+    renderer.render(worldMap);
+    turnAction.moveEntities();
+    renderer.render(worldMap);
+    turnAction.moveEntities();
+    renderer.render(worldMap);
+    turnAction.moveEntities();
+    renderer.render(worldMap);
+    int a = 123;
 //////    worldMap.setEntity(new Coordinates(8, 5), zebra);
 //    worldMap.setEntity(new Coordinates(3, 4), rock);
 //    worldMap.setEntity(new Coordinates(4, 3), rock);
 //    worldMap.setEntity(new Coordinates(2, 3), rock);
 //    worldMap.setEntity(new Coordinates(2, 2), tree);
 //    worldMap.setEntity(new Coordinates(2, 1), tree);
-    renderer.render(worldMap);
 
    
     // Проверки пути, что он не равен 0, если равен - пути нет
