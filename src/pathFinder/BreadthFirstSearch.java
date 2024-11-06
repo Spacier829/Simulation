@@ -1,5 +1,6 @@
 package pathFinder;
 
+import entities.Entity;
 import entities.creatures.Creature;
 import worldMap.Coordinates;
 import worldMap.WorldMap;
@@ -30,7 +31,7 @@ public class BreadthFirstSearch {
       Coordinates coordinates = queue.remove();
       visitedCells.add(coordinates);
 
-      if (isAchievedTarget(coordinates)) {
+      if (isAchievedTarget(coordinates) && creature.isAlive()) {
         return getResultPath(startCoordinates, coordinates);
       }
 
@@ -72,8 +73,9 @@ public class BreadthFirstSearch {
 
   private boolean isAchievedTarget(Coordinates coordinates) {
     if (!worldMap.isCellEmpty(coordinates)) {
-      String entityClass = worldMap.getEntity(coordinates).getClass().getSimpleName();
-      return (creature.getTargetClass().equals(entityClass));
+      Class<? extends Entity> entityClass = worldMap.getEntity(coordinates).getClass();
+      Class<? extends Entity> test = creature.getTargetClass();
+      return (test.equals(entityClass));
     }
     return false;
   }
