@@ -19,12 +19,13 @@ public class TurnAction {
     this.breadthFirstSearch = path;
   }
 
-  public void makeMove() {
+  public void moveEntities() {
     Map<Coordinates, Creature> creatures = getAllCreatures();
     for (Map.Entry<Coordinates, Creature> creature : creatures.entrySet()) {
-      List<Coordinates> path = breadthFirstSearch.findPath(worldMap, creature.getKey(), creature.getValue());
+      Coordinates coordinates = creature.getKey();
+      List<Coordinates> path = breadthFirstSearch.findPath(worldMap, coordinates, creature.getValue());
       if (!path.isEmpty()) {
-        creature.getValue().makeMove(worldMap, creature.getKey(), path.getFirst());
+        creature.getValue().makeMove(worldMap, coordinates, path);
       }
     }
   }
