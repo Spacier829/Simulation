@@ -12,7 +12,7 @@ public class WorldMapRenderer {
   public static final String GRASS = "\uD83C\uDF3F";
   public static final String ROCK = "\uD83D\uDDFF";
   public static final String TREE = "\uD83C\uDF34";
-  public static final String DEBUG = "\uD83D\uDD00";
+  public static final String DEAD_ENTITY = "☠\uFE0F";
 
   public void render(WorldMap worldMap) {
     StringBuilder stringBuilder = new StringBuilder();
@@ -49,8 +49,8 @@ public class WorldMapRenderer {
       return ROCK;
     } else if (entity instanceof Tree) {
       return TREE;
-    } else if (entity instanceof Debug) {
-      return DEBUG;
+    } else if (entity instanceof DeadEntity) {
+      return DEAD_ENTITY;
     }
     throw new IllegalArgumentException("Unsupported entity type: " + entity.getClass().getName());
   }
