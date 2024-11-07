@@ -14,6 +14,8 @@ import java.util.Map;
 public class MoveActions extends Action {
   private final WorldMap worldMap;
   private final BreadthFirstSearch breadthFirstSearch;
+  private int creaturesCount;
+  private int moveStoppedCount;
 
   public MoveActions(WorldMap worldMap, BreadthFirstSearch breadthFirstSearch) {
     this.worldMap = worldMap;
@@ -27,11 +29,14 @@ public class MoveActions extends Action {
 
   private void moveEntities() {
     Map<Coordinates, Creature> creatures = getAllCreatures();
+    creaturesCount = creatures.size();
     for (Map.Entry<Coordinates, Creature> creature : creatures.entrySet()) {
       Coordinates coordinates = creature.getKey();
       List<Coordinates> path = breadthFirstSearch.findPath(worldMap, coordinates, creature.getValue());
       if (!path.isEmpty()) {
         creature.getValue().makeMove(worldMap, coordinates, path);
+      } else {
+        moveStoppedCount++;
       }
     }
   }
@@ -45,5 +50,9 @@ public class MoveActions extends Action {
       }
     }
     return creatures;
+  }
+
+  public boolean isAllMovesStopped() {
+    return moveStoppedCount == creaturesCount;
   }
 }

@@ -33,34 +33,31 @@ public class Simulation {
     stepsCounter = 0;
   }
 
-  public void start() {
-    Creature zebra = new Herbivore();
-    Creature leo = new Predator();
-    worldMap.setEntity(new Coordinates(0,0), leo);
-    worldMap.setEntity(new Coordinates(9,9), zebra);
-//    initSpawnAction.execute();
-//    renderer.render(worldMap);
-//    while () {
-//
-//    }
-
-
-  }
-
-  private void pause() {
-
+  public void start() throws InterruptedException {
+    initSpawnAction.execute();
+    showWelcomeMessage();
+    renderer.render(worldMap);
+    while (!worldMap.isMapFilled()) {
+      nextTurn();
+      Thread.sleep(1000);
+    }
+    showFirewallMessage();
   }
 
   private void nextTurn() {
+    stepsCounter++;
+    showSteps();
     moveAction.execute();
     refillAction.execute();
     renderer.render(worldMap);
-    stepsCounter++;
-    showSteps();
   }
 
   private void showWelcomeMessage() {
     System.out.println(WELCOME_MESSAGE);
+  }
+
+  private void showFirewallMessage() {
+    System.out.println(FIREWALL_MESSAGE);
   }
 
   private void showSteps() {

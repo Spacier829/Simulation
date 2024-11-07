@@ -12,7 +12,7 @@ import java.util.function.Supplier;
 
 public class RefillActions extends Action {
   private final WorldMap worldMap;
-  private final int REDUCTION_FACTOR = 1;
+  private final int REDUCTION_FACTOR = 2;
 
   public RefillActions(WorldMap worldMap) {
     this.worldMap = worldMap;
@@ -38,7 +38,7 @@ public class RefillActions extends Action {
         entityCount++;
       }
     }
-    if (entityCount > 1) {
+    if (entityCount > REDUCTION_FACTOR) {
       entityCount -= REDUCTION_FACTOR;
     }
     return entityCount;

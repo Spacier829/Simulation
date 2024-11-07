@@ -33,7 +33,6 @@ public class Predator extends Creature {
     } else {
       nextCoordinates = path.get(speed - 1);
     }
-    starve();
     worldMap.removeEntity(source);
     worldMap.setEntity(nextCoordinates, this);
     if (!isAlive()) {

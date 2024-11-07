@@ -11,8 +11,6 @@ abstract public class Creature extends Entity {
   protected int speed;
   protected int health;
   protected Class<? extends Entity> targetClass;
-  private final int STARVE_DAMAGE_COEFFICIENT = 1;
-  private int starveDamage = 1;
 
   public Creature(int speed, int health, Class<? extends Entity> targetClass) {
     this.speed = speed;
@@ -50,10 +48,5 @@ abstract public class Creature extends Entity {
 
   public boolean isAlive() {
     return health > MIN_HEALTH;
-  }
-
-  protected void starve() {
-    starveDamage -= starveDamage + STARVE_DAMAGE_COEFFICIENT;
-    health -= starveDamage;
   }
 }

@@ -41,7 +41,7 @@ public class SpawnAction extends Action {
     final double PREDATOR_POPULATION_COEFFICIENT = 0.1;
     final double HERBIVORE_POPULATION_COEFFICIENT = 0.1;
     final double TREE_POPULATION_COEFFICIENT = 0.08;
-    final double ROCK_POPULATION_COEFFICIENT = 0.06;
+    final double ROCK_POPULATION_COEFFICIENT = 0.07;
     final double GRASS_POPULATION_COEFFICIENT = 0.12;
 
     int predatorCount = (int) (worldMap.getMapSize() * PREDATOR_POPULATION_COEFFICIENT);
