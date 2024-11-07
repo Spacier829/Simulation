@@ -25,26 +25,24 @@ public class Predator extends Creature {
 
     int targetDistance = path.size() - 1;
     if (targetDistance == TARGET_DISTANCE_ZERO) {
-      nextCoordinates = source;
+      Coordinates targetCoordinates = path.get(targetDistance);
+      attackTarget(worldMap, targetCoordinates);
+      return;
     } else if (targetDistance == TARGET_DISTANCE_NEAR) {
       nextCoordinates = path.get(targetDistance - 1);
-      worldMap.removeEntity(source);
-      worldMap.setEntity(nextCoordinates, this);
     } else {
       nextCoordinates = path.get(speed - 1);
-      worldMap.removeEntity(source);
-      worldMap.setEntity(nextCoordinates, this);
-      return;
     }
-
-    Coordinates targetCoordinates = path.get(targetDistance);
-    if (worldMap.getEntity(targetCoordinates).getClass().equals(targetClass)) {
-      attackTarget(worldMap, targetCoordinates);
+    starve();
+    worldMap.removeEntity(source);
+    worldMap.setEntity(nextCoordinates, this);
+    if (!isAlive()) {
+      worldMap.setEntity(nextCoordinates, new DeadEntity());
     }
   }
 
   @Override
-  public void eat() {
+  protected void eat() {
     int health = this.health + HEALTH_BONUS;
     if (health >= MAX_HEALTH) {
       this.health = MAX_HEALTH;
@@ -53,7 +51,7 @@ public class Predator extends Creature {
     }
   }
 
-  public void attackTarget(WorldMap worldMap, Coordinates coordinates) {
+  private void attackTarget(WorldMap worldMap, Coordinates coordinates) {
     Creature target = (Creature) worldMap.getEntity(coordinates);
     if (target.getHealth() > DAMAGE) {
       target.setHealth(target.getHealth() - DAMAGE);

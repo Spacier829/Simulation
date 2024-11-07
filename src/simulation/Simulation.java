@@ -1,65 +1,70 @@
 package simulation;
 
-import actions.initActions.InitActions;
-import actions.turnActions.TurnAction;
-import entities.Entity;
+
+import actions.Action;
+import actions.initActions.InitEntitiesSpawn;
+import actions.turnActions.MoveActions;
+import actions.turnActions.RefillActions;
 import entities.creatures.Creature;
 import entities.creatures.Herbivore;
 import entities.creatures.Predator;
-import entities.environment.Grass;
-import entities.environment.Rock;
-import entities.environment.Tree;
 import pathFinder.BreadthFirstSearch;
 import worldMap.Coordinates;
 import worldMap.WorldMap;
 import worldMap.WorldMapRenderer;
 
-import java.util.*;
-
 public class Simulation {
-  private WorldMap map;
+  private WorldMap worldMap;
+  private WorldMapRenderer renderer = new WorldMapRenderer();
+  private Action initSpawnAction;
+  private Action moveAction;
+  private Action refillAction;
+  private BreadthFirstSearch breadthFirstSearch;
   private int stepsCounter;
+  private final String WELCOME_MESSAGE = "Hello! This is Simulation";
+  private final String FIREWALL_MESSAGE = "Simulation finished";
 
-  public static void main(String[] args) {
-    WorldMap worldMap = new WorldMap(5, 5);
-    WorldMapRenderer renderer = new WorldMapRenderer();
-//    InitActions.initSpawns(worldMap);
-    BreadthFirstSearch bfs = new BreadthFirstSearch(worldMap);
-    TurnAction turnAction = new TurnAction(worldMap, bfs);
-
-    Creature zebra = new Herbivore();
-    Entity grass = new Grass();
-    Entity grass1 = new Grass();
-    Entity rock = new Rock();
-    Entity tree = new Tree();
-    Entity leo = new Predator();
-
-    worldMap.setEntity(new Coordinates(4, 2), zebra);
-    worldMap.setEntity(new Coordinates(4, 1), leo);
-    worldMap.setEntity(new Coordinates(2, 2), grass);
-    worldMap.setEntity(new Coordinates(1, 1), grass1);
-    renderer.render(worldMap);
-    turnAction.moveEntities();
-    renderer.render(worldMap);
-    turnAction.moveEntities();
-    renderer.render(worldMap);
-    turnAction.moveEntities();
-    renderer.render(worldMap);
-    turnAction.moveEntities();
-    renderer.render(worldMap);
-    turnAction.moveEntities();
-    renderer.render(worldMap);
-    int a = 123;
-//////    worldMap.setEntity(new Coordinates(8, 5), zebra);
-//    worldMap.setEntity(new Coordinates(3, 4), rock);
-//    worldMap.setEntity(new Coordinates(4, 3), rock);
-//    worldMap.setEntity(new Coordinates(2, 3), rock);
-//    worldMap.setEntity(new Coordinates(2, 2), tree);
-//    worldMap.setEntity(new Coordinates(2, 1), tree);
-
-   
-    // Проверки пути, что он не равен 0, если равен - пути нет
+  public Simulation(WorldMap worldMap) {
+    this.worldMap = worldMap;
+    initSpawnAction = new InitEntitiesSpawn(worldMap);
+    breadthFirstSearch = new BreadthFirstSearch(worldMap);
+    moveAction = new MoveActions(worldMap, breadthFirstSearch);
+    refillAction = new RefillActions(worldMap);
+    stepsCounter = 0;
   }
-  // WorldMapRenderer
-  // Actions - список действий, исполняемых перед стартом симуляции
+
+  public void start() {
+    Creature zebra = new Herbivore();
+    Creature leo = new Predator();
+    worldMap.setEntity(new Coordinates(0,0), leo);
+    worldMap.setEntity(new Coordinates(9,9), zebra);
+//    initSpawnAction.execute();
+//    renderer.render(worldMap);
+//    while () {
+//
+//    }
+
+
+  }
+
+  private void pause() {
+
+  }
+
+  private void nextTurn() {
+    moveAction.execute();
+    refillAction.execute();
+    renderer.render(worldMap);
+    stepsCounter++;
+    showSteps();
+  }
+
+  private void showWelcomeMessage() {
+    System.out.println(WELCOME_MESSAGE);
+  }
+
+  private void showSteps() {
+    System.out.println("Step: " + stepsCounter);
+  }
+
 }

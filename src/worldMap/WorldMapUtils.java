@@ -17,7 +17,7 @@ public class WorldMapUtils {
   }
 
   public static boolean isValidCoordinates(WorldMap worldMap, Coordinates coordinates) {
-    return coordinates.getX() < worldMap.getWidth() && coordinates.getX() >= 0 &&
-           coordinates.getY() < worldMap.getHeight() && coordinates.getY() >= 0;
+    return coordinates.x() < worldMap.getWidth() && coordinates.x() >= 0 &&
+           coordinates.y() < worldMap.getHeight() && coordinates.y() >= 0;
   }
 }

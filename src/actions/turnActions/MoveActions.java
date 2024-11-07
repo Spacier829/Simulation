@@ -1,5 +1,6 @@
 package actions.turnActions;
 
+import actions.Action;
 import entities.Entity;
 import entities.creatures.Creature;
 import pathFinder.BreadthFirstSearch;
@@ -10,16 +11,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class TurnAction {
+public class MoveActions extends Action {
   private final WorldMap worldMap;
   private final BreadthFirstSearch breadthFirstSearch;
 
-  public TurnAction(WorldMap worldMap, BreadthFirstSearch path) {
+  public MoveActions(WorldMap worldMap, BreadthFirstSearch breadthFirstSearch) {
     this.worldMap = worldMap;
-    this.breadthFirstSearch = path;
+    this.breadthFirstSearch = breadthFirstSearch;
   }
 
-  public void moveEntities() {
+  @Override
+  public void execute() {
+    moveEntities();
+  }
+
+  private void moveEntities() {
     Map<Coordinates, Creature> creatures = getAllCreatures();
     for (Map.Entry<Coordinates, Creature> creature : creatures.entrySet()) {
       Coordinates coordinates = creature.getKey();
@@ -41,4 +47,3 @@ public class TurnAction {
     return creatures;
   }
 }
-

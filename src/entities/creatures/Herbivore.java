@@ -1,5 +1,6 @@
 package entities.creatures;
 
+import entities.environment.DeadEntity;
 import entities.environment.Grass;
 import worldMap.Coordinates;
 import worldMap.WorldMap;
@@ -17,22 +18,31 @@ public class Herbivore extends Creature {
 
   @Override
   public void makeMove(WorldMap worldMap, Coordinates source, List<Coordinates> path) {
-    Coordinates nextCoordinates;
-    if (path.size() <= speed) {
-      nextCoordinates = path.getLast();
+    Coordinates nextCoordinates = source;
+    if (path.isEmpty()) {
+      starve();
+    } else {
+      if (path.size() <= speed) {
+        nextCoordinates = path.getLast();
+      } else {
+        nextCoordinates = path.get(speed - 1);
+      }
       if (worldMap.getEntity(nextCoordinates).getClass().equals(targetClass)) {
         eat();
+      } else {
+        starve();
       }
-    } else {
-      nextCoordinates = path.get(speed - 1);
     }
 
     worldMap.removeEntity(source);
     worldMap.setEntity(nextCoordinates, this);
+    if (!isAlive()) {
+      worldMap.setEntity(nextCoordinates, new DeadEntity());
+    }
   }
 
   @Override
-  public void eat() {
+  protected void eat() {
     int health = this.health + HEALTH_BONUS;
     if (health >= MAX_HEALTH) {
       this.health = MAX_HEALTH;

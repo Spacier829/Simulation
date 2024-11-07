@@ -35,8 +35,8 @@ public class BreadthFirstSearch {
         return getResultPath(startCoordinates, coordinates);
       }
 
-      int x = coordinates.getX();
-      int y = coordinates.getY();
+      int x = coordinates.x();
+      int y = coordinates.y();
 
       List<Coordinates> coordinateShift = new ArrayList<>();
       coordinateShift.add(new Coordinates(x + 1, y));
