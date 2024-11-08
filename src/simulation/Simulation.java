@@ -39,13 +39,13 @@ public class Simulation {
   }
 
   public void start() throws InterruptedException {
-//    initSpawnAction.execute();
-    worldMap.setEntity(new Coordinates(0,3), new DeadEntity());
-    worldMap.setEntity(new Coordinates(1,3), new Herbivore());
-    worldMap.setEntity(new Coordinates(2,3), new DeadEntity());
-    worldMap.setEntity(new Coordinates(2,2), new Predator());
-    worldMap.setEntity(new Coordinates(1,2), new Tree());
-    worldMap.setEntity(new Coordinates(0,2), new Grass());
+    initSpawnAction.execute();
+//    worldMap.setEntity(new Coordinates(0,3), new DeadEntity());
+//    worldMap.setEntity(new Coordinates(1,3), new Herbivore());
+//    worldMap.setEntity(new Coordinates(2,3), new DeadEntity());
+//    worldMap.setEntity(new Coordinates(2,2), new Predator());
+//    worldMap.setEntity(new Coordinates(1,2), new Tree());
+//    worldMap.setEntity(new Coordinates(0,2), new Grass());
     showWelcomeMessage();
     renderer.render(worldMap);
     while (!handleEndGame.isGameStatus()) {
