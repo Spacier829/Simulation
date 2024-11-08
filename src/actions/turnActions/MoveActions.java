@@ -16,10 +16,12 @@ public class MoveActions extends Action {
   private final BreadthFirstSearch breadthFirstSearch;
   private int creaturesCount;
   private int moveStoppedCount;
+  private HandleEndGameAction handleEndGameAction;
 
-  public MoveActions(WorldMap worldMap, BreadthFirstSearch breadthFirstSearch) {
+  public MoveActions(WorldMap worldMap, BreadthFirstSearch breadthFirstSearch, HandleEndGameAction handleEndGameAction) {
     this.worldMap = worldMap;
     this.breadthFirstSearch = breadthFirstSearch;
+    this.handleEndGameAction = handleEndGameAction;
   }
 
   @Override
@@ -28,17 +30,20 @@ public class MoveActions extends Action {
   }
 
   private void moveEntities() {
+    moveStoppedCount = 0;
     Map<Coordinates, Creature> creatures = getAllCreatures();
     creaturesCount = creatures.size();
     for (Map.Entry<Coordinates, Creature> creature : creatures.entrySet()) {
       Coordinates coordinates = creature.getKey();
-      List<Coordinates> path = breadthFirstSearch.findPath(worldMap, coordinates, creature.getValue());
+      Creature currentCreature = creature.getValue();
+      List<Coordinates> path = breadthFirstSearch.findPath(worldMap, coordinates, currentCreature);
       if (!path.isEmpty()) {
-        creature.getValue().makeMove(worldMap, coordinates, path);
+        currentCreature.makeMove(worldMap, coordinates, path);
       } else {
         moveStoppedCount++;
       }
     }
+    handleEndGameAction.setGameStatus(isAllMovesStopped());
   }
 
   private Map<Coordinates, Creature> getAllCreatures() {
@@ -52,7 +57,7 @@ public class MoveActions extends Action {
     return creatures;
   }
 
-  public boolean isAllMovesStopped() {
+  private boolean isAllMovesStopped() {
     return moveStoppedCount == creaturesCount;
   }
 }
