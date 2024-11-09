@@ -43,7 +43,7 @@ public class MoveActions extends Action {
         moveStoppedCount++;
       }
     }
-    handleEndGameAction.setGameStatus(isAllMovesStopped());
+    handleEndGameAction.setGameStopped(isAllMovesStopped());
   }
 
   private Map<Coordinates, Creature> getAllCreatures() {

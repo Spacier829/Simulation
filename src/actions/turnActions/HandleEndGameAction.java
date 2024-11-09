@@ -3,21 +3,21 @@ package actions.turnActions;
 import actions.Action;
 
 public class HandleEndGameAction extends Action {
-  private boolean gameStatus;
+  private boolean gameStopped;
 
   public HandleEndGameAction() {
-    this.gameStatus = false;
+    this.gameStopped = false;
   }
 
   @Override
   public void execute() {
   }
 
-  public boolean isGameStatus() {
-    return gameStatus;
+  public boolean isGameStopped() {
+    return gameStopped;
   }
 
-  public void setGameStatus(boolean gameStatus) {
-    this.gameStatus = gameStatus;
+  public void setGameStopped(boolean gameStatus) {
+    this.gameStopped = gameStatus;
   }
 }
