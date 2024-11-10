@@ -1,20 +1,11 @@
 package simulation;
 
-
 import actions.Action;
 import actions.initActions.InitEntitiesSpawn;
 import actions.turnActions.HandleEndGameAction;
 import actions.turnActions.MoveActions;
 import actions.turnActions.RefillActions;
-import entities.creatures.Creature;
-import entities.creatures.Herbivore;
-import entities.creatures.Predator;
-import entities.environment.DeadEntity;
-import entities.environment.Grass;
-import entities.environment.Rock;
-import entities.environment.Tree;
 import pathFinder.BreadthFirstSearch;
-import worldMap.Coordinates;
 import worldMap.WorldMap;
 import worldMap.WorldMapRenderer;
 
@@ -24,11 +15,11 @@ public class Simulation {
   private Action initSpawnAction;
   private Action moveAction;
   private Action refillAction;
+  private HandleEndGameAction handleEndGame = new HandleEndGameAction();
   private BreadthFirstSearch breadthFirstSearch;
   private int stepsCounter;
-  private final String WELCOME_MESSAGE = "Hello! This is Simulation";
+  private final String WELCOME_MESSAGE = "Simulation started";
   private final String FIREWALL_MESSAGE = "Simulation finished";
-  private HandleEndGameAction handleEndGame = new HandleEndGameAction();
 
   public Simulation(WorldMap worldMap) {
     this.worldMap = worldMap;
@@ -69,5 +60,4 @@ public class Simulation {
   private void showSteps() {
     System.out.println("Step: " + stepsCounter);
   }
-
 }

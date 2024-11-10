@@ -1,4 +1,5 @@
 import simulation.Simulation;
+import worldMap.Coordinates;
 import worldMap.WorldMap;
 
 public class Main {

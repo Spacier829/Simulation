@@ -28,7 +28,7 @@ public class WorldMap {
 
   public void setEntity(Coordinates coordinates, Entity entity) {
     if (!WorldMapUtils.isValidCoordinates(this, coordinates)) {
-      throw new IllegalArgumentException("Entity not set. Invalid coordinates");
+      throw new IllegalArgumentException("Entity not set. Invalid " + coordinates);
     }
     entities.put(coordinates, entity);
   }
@@ -36,19 +36,22 @@ public class WorldMap {
   public void removeEntity(Coordinates coordinates) {
     boolean isRemoved = entities.remove(coordinates) != null;
     if (!isRemoved) {
-      throw new IllegalArgumentException("Entity not found. Invalid coordinates");
+      throw new IllegalArgumentException("Entity not found. Invalid " + coordinates);
     }
   }
 
   public Entity getEntity(Coordinates coordinates) {
     Entity entity = entities.get(coordinates);
     if (entity == null) {
-      throw new IllegalArgumentException("Coordinates not found " + coordinates);
+      throw new IllegalArgumentException("Coordinates not found. Invalid " + coordinates);
     }
     return entities.get(coordinates);
   }
 
   public Set<Coordinates> getEntitiesCoordinates() {
+    if (entities.isEmpty()) {
+      throw new IllegalArgumentException("Entities is empty.");
+    }
     return entities.keySet();
   }
 

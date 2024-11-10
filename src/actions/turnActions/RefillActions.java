@@ -1,7 +1,7 @@
 package actions.turnActions;
 
 import actions.Action;
-import actions.SpawnAction;
+import actions.spawnActions.SpawnAction;
 import entities.Entity;
 import entities.creatures.Herbivore;
 import entities.environment.Grass;
