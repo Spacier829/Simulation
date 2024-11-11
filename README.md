@@ -2,11 +2,13 @@
 
 Пошаговая симуляция 2D-мира, населенного травоядными и хищниками.
 
+![image](https://github.com/user-attachments/assets/ae8e21d5-3a42-430a-9dba-70d058178b96)
+
 ## Содержание
 
 - [Стек](#стек)
 - [Особенности](#особенности)
-- [Пример работы](#Пример)
+- [Пример работы](#пример)
 - [Установка](#установка)
 
 ## Стек
@@ -31,6 +33,7 @@
 
 ## Пример
 
+![123](https://github.com/user-attachments/assets/80d0910e-0a61-4700-afb8-2883301ee9e1)
 
 ## Установка
  Склонируйте репозиторий:
@@ -40,5 +43,17 @@ git clone https://github.com/Spacier829/Simulation.git
 Перейдите в корневую папку проекта
 ```
 cd Simulation/src
+```
+Соберите проект с импользованием Maven
+```
+mvn clean install
+```
+Перейдите в каталог target
+```
+cd target
+```
+Запустите JAR-файл
+```
+java -jar Simulation-1.0-SNAPSHOT.jar
 ```
 
