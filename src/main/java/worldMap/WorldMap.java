@@ -5,11 +5,16 @@ import entities.Entity;
 import java.util.*;
 
 public class WorldMap {
+  private final int MIN_WIDTH = 5;
+  private final int MIN_HEIGHT = 5;
   private final int width;
   private final int height;
   private Map<Coordinates, Entity> entities = new HashMap<>();
 
   public WorldMap(int width, int height) {
+    if (width < MIN_WIDTH || height < MIN_HEIGHT) {
+      throw new IllegalArgumentException("Width and height must be at least " + MIN_WIDTH + " and " + MIN_HEIGHT);
+    }
     this.width = width;
     this.height = height;
   }
