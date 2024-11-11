@@ -18,7 +18,8 @@ public class MoveActions extends Action {
   private int moveStoppedCount;
   private HandleEndGameAction handleEndGameAction;
 
-  public MoveActions(WorldMap worldMap, BreadthFirstSearch breadthFirstSearch, HandleEndGameAction handleEndGameAction) {
+  public MoveActions(WorldMap worldMap, BreadthFirstSearch breadthFirstSearch,
+                     HandleEndGameAction handleEndGameAction) {
     this.worldMap = worldMap;
     this.breadthFirstSearch = breadthFirstSearch;
     this.handleEndGameAction = handleEndGameAction;

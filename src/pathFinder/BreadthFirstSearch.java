@@ -45,9 +45,7 @@ public class BreadthFirstSearch {
       coordinateShift.add(new Coordinates(x, y - 1));
 
       for (Coordinates shift : coordinateShift) {
-        if (WorldMapUtils.isValidCoordinates(worldMap, shift) &&
-            isCanVisit(shift) && isCanMove(shift)
-        ) {
+        if (isValidMove(shift)) {
           queue.offer(shift);
           coordinatesConnections.put(shift, coordinates);
         }
@@ -82,5 +80,9 @@ public class BreadthFirstSearch {
 
   private boolean isCanMove(Coordinates coordinates) {
     return worldMap.isCellEmpty(coordinates) || isAchievedTarget(coordinates);
+  }
+
+  private boolean isValidMove(Coordinates coordinates) {
+    return WorldMapUtils.isValidCoordinates(worldMap, coordinates) && isCanVisit(coordinates) && isCanMove(coordinates);
   }
 }
